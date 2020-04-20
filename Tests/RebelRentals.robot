@@ -30,7 +30,7 @@ Go to Web Page
 
 Switch to privacy page
         Go to Web Page
-        Click Element               xpath://html/body/header/nav/div/div/ul[2]/li[2]/a
+        Click Element               xpath://html/body/header/nav/div/div/ul[2]/li[3]/a
         Wait Until Page Contains    Privacy Policy
 
 Switch to home page
@@ -74,6 +74,7 @@ User can switch pages in header menu
     [Tags]                      Header      Pages
     Go to Web Page
     Switch to privacy page
+    Switch to home page
 
 User can create an account
     [Documentation]             Test: The user should be able to create an account.
