@@ -1,6 +1,6 @@
 *** Settings ***
 
-Documentation       This is a test suite around an agile projects website made with Razor Pages
+Documentation       This is a test suite around an agile projects website made with Razor Pages.
 Library             SeleniumLibrary
 Library             String
 Test Setup          Begin Agile Project Page Test
@@ -38,35 +38,54 @@ Switch to home page
         Wait Until Page Contains    Welcome
 
 Register an account
-        Click Element               xpath://html/body/header/nav/div/div/ul[1]/li[1]/a
-        Wait Until Page Contains    Create a new account
+        Click Element                       xpath://html/body/header/nav/div/div/ul[1]/li[1]/a
+        Wait Until Page Contains            Create a new account
         Wait Until Element Is Visible       xpath://*[@id="Input_Email"]
-        Input Text                  xpath://*[@id="Input_Email"]        ${RANDOMSTRING}@email.com
-        Input Text                  xpath://*[@id="Input_Password"]        ${PASSWORD}
-        Input Text                  xpath://*[@id="Input_ConfirmPassword"]      ${PASSWORD}
-        Click Element               xpath://html/body/div/main/div/div[1]/form/button
-        Wait Until Page Contains    Register confirmation
+        Input Text                          xpath://*[@id="Input_Email"]        ${RANDOMSTRING}@email.com
+        Input Text                          xpath://*[@id="Input_Password"]        ${PASSWORD}
+        Input Text                          xpath://*[@id="Input_ConfirmPassword"]      ${PASSWORD}
+        Click Element                       xpath://html/body/div/main/div/div[1]/form/button
+        Wait Until Page Contains            Register confirmation
+        Click Element                       xpath://*[@id="confirm-link"]
+        Wait Until Page Contains            Thank you for confirming your email
+
+Register an account fail
+        Click Element                       xpath://html/body/header/nav/div/div/ul[1]/li[1]/a
+        Wait Until Page Contains            Create a new account
+        Wait Until Element Is Visible       xpath://*[@id="Input_Email"]
+        Input Text                          xpath://*[@id="Input_Email"]        ${RANDOMSTRING}fuck@email.com
+        Input Text                          xpath://*[@id="Input_Password"]        ${PASSWORD}
+        Input Text                          xpath://*[@id="Input_ConfirmPassword"]      ${PASSWORD}
+        Click Element                       xpath://html/body/div/main/div/div[1]/form/button
+        Wait Until Page Contains            Profanity not allowed
+        Page Should Not Contain             Register confirmation
 
 End Agile Project Test
         Close Browser
 
 *** Test Cases ***
 User can access RebelRental page
-    [Documentation]             Test: The user should be able to access the RebelRentals page
+    [Documentation]             Test: The user should be able to access the RebelRentals page.
     [Tags]                      Access
     Go to Web Page
 
 User can switch pages in header menu
-    [Documentation]             Test: The user should be able to switch pages from the header menu
+    [Documentation]             Test: The user should be able to switch pages from the header menu.
     [Tags]                      Header      Pages
     Go to Web Page
     Switch to privacy page
 
 User can create an account
-    [Documentation]             Test: The user should be able to create an account
+    [Documentation]             Test: The user should be able to create an account.
     [Tags]                      Account
     Go to Web Page
     Generate Email
     Register an account
 
+User can not create an account using profanity
+    [Documentation]             Test: The user should not be able to create an account using profanity in username/email.
+    [Tags]                      Account
+    Go to Web Page
+    Generate Email
+    Register an account fail
 
