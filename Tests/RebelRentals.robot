@@ -36,7 +36,7 @@ Go to Web Page
 Switch to privacy page
         Go to Web Page
         Wait Until Page Contains    ${SEARCH_TERM}
-        Click Element               xpath://html/body/header/nav/div/div/ul[2]/li[4]/a
+        Click Element               xpath://html/body/header/nav/div/div/ul[2]/li[5]/a
         Wait Until Page Contains    Privacy Policy
 
 Switch to home page
@@ -159,6 +159,75 @@ Compose message to support staff and click the send button
         Click Button                        xpath://html/body/div/main/form/div[4]/button
         Wait Until Page Contains            A support member will get back to you as soon as possible
 
+See if Galactic Translator page exists by clicking its link in the navbar
+        Wait Until Page Contains            Galactic Translator
+        Click Element                       xpath://html/body/header/nav/div/div/ul[2]/li[4]/a
+        Wait Until Page Contains            Enter text to translate:
+
+See if you can choose a language from a dropdown menu and enter text to translate
+        Click Element                       xpath://*[@id="SelectedLanguage"]
+        Click Element                       xpath://html/body/div/main/div/form/select/option[2]
+        Input Text                          xpath://*[@id="TextToTranslate"]        I have told you before that this is not a language!     True
+        Textarea Should Contain             xpath://*[@id="TextToTranslate"]        I have told you before that this is not a language!
+
+Click on the translate button and make sure the inputted text gets translated
+        Click Button                        xpath://html/body/div/main/div/form/button
+        Page Should Not Contain             Too many requests
+
+Go to the Galactic Translator Page and enter text to translate to sith
+        Wait Until Page Contains            Galactic Translator
+        Click Element                       xpath://html/body/header/nav/div/div/ul[2]/li[4]/a
+        Wait Until Page Contains            Enter text to translate:
+        Input Text                          xpath://*[@id="TextToTranslate"]        Sith shall conquer all.     True
+        Textarea Should Contain             xpath://*[@id="TextToTranslate"]        Sith shall conquer all.
+
+Change language to Gungan and change the text to be translated
+        Click Element                       xpath://*[@id="SelectedLanguage"]
+        Click Element                       xpath://html/body/div/main/div/form/select/option[2]
+        Input Text                          xpath://*[@id="TextToTranslate"]        I have told you before that this is not a language!     True
+        Textarea Should Contain             xpath://*[@id="TextToTranslate"]        I have told you before that this is not a language!
+
+Change language to Yoda
+        Click Element                       xpath://*[@id="SelectedLanguage"]
+        Click Element                       xpath://html/body/div/main/div/form/select/option[3]
+        Input Text                          xpath://*[@id="TextToTranslate"]        I have told you before that this is not a language!     True
+        Textarea Should Contain             xpath://*[@id="TextToTranslate"]        I have told you before that this is not a language!
+
+Click on the translate button
+        Click Button                        xpath://html/body/div/main/div/form/button
+
+Click on the translate button and make sure nothing is translated
+        Click Button                        xpath://html/body/div/main/div/form/button
+        Page Should Contain                 Too many requests
+
+Check if an Order Page exists and is accessible through the shoppingcart
+        Click Element                       xpath://html/body/div/main/div/a
+        Wait Until Page Contains            Order summary
+        Element Text Should Not Be          xpath://html/body/div/main/p        0
+
+Go to the Order Summary Page by finalizing an order
+        Click Element                       xpath://html/body/div/main/div/a
+        Wait Until Page Contains            Order summary
+        Element Text Should Not Be          xpath://html/body/div/main/p        0
+        Click Button                        xpath://html/body/div/main/form[2]/button
+        Wait Until Element Is Visible       xpath://html/body/div/main/table/tbody
+        Element Text Should Be              xpath://html/body/div/main/h1       Summary
+
+Go back to the Order Page by clicking Back to List and check if the list has been cleared
+        Click Element                       xpath://html/body/div/main/div/a
+        Wait Until Page Contains            Order summary
+        Element Text Should Be              xpath://html/body/div/main/p        Total cost: 0
+        Wait Until Page Contains            You haven't added anything yet
+
+Go to the Order Summary Page
+        Click Element                       xpath://html/body/div/main/div/a
+        Wait Until Page Contains            Order summary
+        Element Text Should Not Be          xpath://html/body/div/main/p        0
+
+Clear the order list by clicking a button and get redirected to the Home Page
+        Click Button                        xpath://html/body/div/main/form[1]/button
+        Wait Until Page Contains            NASA's Daily Recommended Tourist Location
+
 
 End Agile Project Test
         Close Browser
@@ -169,23 +238,23 @@ User can access RebelRental page
     [Tags]                      Access
     Go to Web Page
 
-User can switch pages in header menu
+User can switch pages in the navbar
     [Documentation]             Test: The user should be able to switch pages from the header menu.
-    [Tags]                      Header      Pages
+    [Tags]                      Header      Pages       Navbar
     Go to Web Page
     Switch to privacy page
     Switch to home page
 
 User can create an account
     [Documentation]             Test: The user should be able to create an account.
-    [Tags]                      Account
+    [Tags]                      Account     Navbar
     Go to Web Page
     Generate Email
     Register an account
 
 User can not create an account using profanity
     [Documentation]             Test: The user should not be able to create an account using profanity in username/email.
-    [Tags]                      Account     Profanity_Filter
+    [Tags]                      Account     Profanity_Filter        Invalid
     Go to Web Page
     Register an account fail
 
@@ -203,7 +272,7 @@ User can reach register page from the login page
 
 User can add ships/products to their shopping cart and remove them
     [Documentation]             Test: The user should be able to add and remove products from their cart, and reach said cart.
-    [Tags]                      Account     Shopping_Cart    Add_Products
+    [Tags]                      Account     Shopping_Cart    Add_Products       Navbar
     Go to Web Page
     Login to account
     Go to Ships page
@@ -225,7 +294,7 @@ User should see a different vacation recommendation every day
 
 User should be able to add a phonenumber at registration or add/change phonenumber after registration
     [Documentation]             Test: The user should be able to add their phonenumber for ease of contact with support staff, at registration of their account or after due to an older version of the website not containing phone numbers or if the user needs to change their number.
-    [Tags]                      Account     Phone_Number
+    [Tags]                      Account     Phone_Number        Profile     Navbar
     Go to Web Page
     Generate Email
     Register an account
@@ -235,7 +304,7 @@ User should be able to add a phonenumber at registration or add/change phonenumb
 
 User should not be able to add a phonenumber at registration or add/change phonenumber after registration with invalid phonenumber formats
     [Documentation]             Test: The user should not be able to add their phonenumber at registration of their account or after in their profile if they use invalid phonenumber formats.
-    [Tags]                      Account     Phone_Number
+    [Tags]                      Account     Phone_Number    Invalid
     Go to Web Page
     Generate Email
     Register an account with invalid phonenumber format
@@ -244,8 +313,89 @@ User should not be able to add a phonenumber at registration or add/change phone
 
 User should be able to reach a Contact page from the navbar and send a message/an email to support staff
     [Documentation]             Test: The user should be able to reach a contact page from the navbar, and by entering name, email and message into the appropriate fields send a message and/or email to support staff by then clicking a button.
-    [Tags]                      Support     Contact_Page    Message     Email
+    [Tags]                      Support     Contact_Page    Message     Email       Navbar
     Go to Web Page
     Generate Email
     Go to contact page and input the neccessary contact information in the appropriate fields
     Compose message to support staff and click the send button
+
+User should be able to reach a Galactic Translator Page from the navbar and enter relevant information
+    [Documentation]             Test: The user should be able to reach a Galactic Translator Page and choose language and enter the text to be translated.
+    [Tags]                      Navbar      Translate
+    Go to Web Page
+    See if Galactic Translator page exists by clicking its link in the navbar
+    See if you can choose a language from a dropdown menu and enter text to translate
+
+User should be able to use the Galactic Translator Page to translate text into 3 different languages
+    [Documentation]             Test: By using the Galactic Translator Page the user should be able to translate text into the three existing languages in the dropdown menu.
+    [Tags]                      Navbar      Translate       Translate_Coverage
+    Go to Web Page
+    Go to the Galactic Translator Page and enter text to translate to sith
+    Click on the translate button and make sure the inputted text gets translated
+    Change language to Gungan and change the text to be translated
+    Click on the translate button and make sure the inputted text gets translated
+    Change language to Yoda
+    Click on the translate button and make sure the inputted text gets translated
+
+User should not be able to translate anything more than five times during a certain period of time
+    [Documentation]             Test: After translating something/anything on the translate page five times, an error message should appear instead of a translation.
+    [Tags]                      Navbar      Translate       Invalid
+    Go to Web Page
+    Go to the Galactic Translator Page and enter text to translate to sith
+    Click on the translate button
+    Change language to Gungan and change the text to be translated
+    Click on the translate button
+    Change language to Yoda
+    Click on the translate button
+    Change language to Gungan and change the text to be translated
+    Click on the translate button
+    Change language to Yoda
+    Click on the translate button
+    Change language to Gungan and change the text to be translated
+    Click on the translate button
+    Change language to Yoda
+    Click on the translate button
+    Change language to Gungan and change the text to be translated
+    Click on the translate button and make sure nothing is translated
+
+User should be able to access the Order Page through the shoppingcart after adding ships to it
+    [Documentation]             Test: The user reacher an order page through the shopping cart, and sees a small summary of the items of said cart and total cost.
+    [Tags]                      Shopping_Cart       Order_Page      Place_An_Order
+    Go to Web Page
+    Login to account
+    Go to Ships page
+    Add ships to cart
+    Go to cart
+    Check if an Order Page exists and is accessible through the shoppingcart
+
+User should be able to access a Order Summary Page through the Order Page by finalizing the users order
+    [Documentation]             Test: The user reacher a more detailed order summary through the order page, and sees more detailed information about items in the shoppingcart.
+    [Tags]                      Shopping_Cart       Order_Page      Place_An_Order       Summary_Page
+    Go to Web Page
+    Login to account
+    Go to Ships page
+    Add ships to cart
+    Go to cart
+    Go to the Order Summary Page by finalizing an order
+
+Users order list on the Order Page should have been cleared by finalizing the order
+    [Documentation]             Test: The users order should be cleared after having seen the Order Summary after finalizing their order.
+    [Tags]                      Shopping_Cart       Order_Page      Place_An_Order
+    Go to Web Page
+    Login to account
+    Go to Ships page
+    Add ships to cart
+    Go to cart
+    Go to the Order Summary Page by finalizing an order
+    Go back to the Order Page by clicking Back to List and check if the list has been cleared
+
+User should be able to remove their shopping cart items by clearing their order list
+    [Documentation]             Test: The users order should be able to be cleared by clicking a button on the Order Page.
+    [Tags]                      Shopping_Cart       Order_Page      Place_An_Order
+    Go to Web Page
+    Login to account
+    Go to Ships page
+    Add ships to cart
+    Go to cart
+    Go to the Order Summary Page
+    Clear the order list by clicking a button and get redirected to the Home Page
