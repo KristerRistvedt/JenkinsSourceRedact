@@ -100,7 +100,7 @@ Add ships to cart
         Click Button                        xpath://html/body/div[1]/main/table/tbody/tr[4]/td[6]/form/button
 
 Go to cart
-        Click Element                       xpath://html/body/header/nav/div/div/ul/li[1]/a/img
+        Click Element                       xpath://html/body/header/nav/div/div/ul/li[1]/a
         Wait Until Page Contains            Death Star
         Wait Until Page Contains            Star Destroyer
 
