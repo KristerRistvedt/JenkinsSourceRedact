@@ -65,7 +65,7 @@ Register an account fail
         Input Text                          xpath://*[@id="Input_PhoneNumber"]      0731234567
         Input Text                          xpath://*[@id="Input_Password"]        ${PASSWORD}
         Input Text                          xpath://*[@id="Input_ConfirmPassword"]      ${PASSWORD}
-        Click Element                       xpath://html/body/div/main/div/div[1]/form/button
+        Click Element                       xpath://html/body/div[1]/main/div/div/form/button
         Wait Until Page Contains            Profanity not allowed
         Page Should Not Contain             Register confirmation
 
