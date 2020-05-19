@@ -100,12 +100,12 @@ Add ships to cart
         Click Button                        xpath://html/body/div[1]/main/table/tbody/tr[4]/td[6]/form/button
 
 Go to cart
-        Click Element                       xpath://html/body/header/nav/div/div/ul/li[1]/a
+        Click Element                       xpath://html/body/header/nav/div/div/ul/li[1]/a/img
         Wait Until Page Contains            Death Star
         Wait Until Page Contains            Star Destroyer
 
 Remove ship from cart
-        Click Button                        xpath://html/body/div[1]/main/table/tbody/tr[1]/td[4]/form/button
+        Click Button                        xpath://html/body/div[1]/main/table/tbody/tr[2]/td[4]/form/button
         Wait Until Page Does Not Contain    Star Destroyer
 
 Checkout with current cart
